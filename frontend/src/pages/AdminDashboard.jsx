@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import {
-    Users, CheckCircle, XCircle, ChevronLeft, ChevronRight,
-    Search, Shield, ShieldAlert, LogOut
+    Shield, CheckCircle, XCircle, LogOut, AlertTriangle
 } from 'lucide-react';
-import ConfirmationModal from '../components/ConfirmationModal';
+import Button from '../components/common/Button';
+import Spinner from '../components/common/Spinner';
+import Modal from '../components/common/Modal';
+import Pagination from '../components/common/Pagination';
 
 const AdminDashboard = () => {
     const { user, logout } = useAuth();
+    const { addToast } = useToast();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     // Modal State
     const [modalOpen, setModalOpen] = useState(false);
@@ -30,7 +32,7 @@ const AdminDashboard = () => {
             setTotalPages(pagination.pages);
             setPage(pagination.page);
         } catch (err) {
-            setError('Failed to fetch users');
+            addToast('Failed to fetch users', 'error');
             console.error(err);
         } finally {
             setLoading(false);
@@ -54,20 +56,28 @@ const AdminDashboard = () => {
             const endpoint = `/admin/users/${selectedUser._id}/${actionType}`;
             await api.patch(endpoint);
 
-            setSuccess(`User ${selectedUser.fullName} ${actionType}d successfully`);
+            addToast(`User ${selectedUser.fullName} ${actionType}d successfully`, 'success');
             fetchUsers(page); // Refresh list
-
-            // Clear success msg after 3s
-            setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
-            setError(err.response?.data?.message || `Failed to ${actionType} user`);
-            setTimeout(() => setError(''), 3000);
+            addToast(err.response?.data?.message || `Failed to ${actionType} user`, 'error');
         } finally {
             setModalOpen(false);
             setSelectedUser(null);
             setActionType(null);
         }
     };
+
+    const modalFooter = (
+        <>
+            <Button onClick={() => setModalOpen(false)} variant="secondary">Cancel</Button>
+            <Button
+                onClick={confirmAction}
+                variant={actionType === 'deactivate' ? 'danger' : 'success'}
+            >
+                Confirm
+            </Button>
+        </>
+    );
 
     return (
         <div className="dashboard-container">
@@ -84,9 +94,9 @@ const AdminDashboard = () => {
                         </div>
                         <span>{user?.fullName}</span>
                     </a>
-                    <button onClick={logout} className="btn-icon" title="Logout">
+                    <Button onClick={logout} variant="icon" title="Logout">
                         <LogOut size={20} />
-                    </button>
+                    </Button>
                 </div>
             </nav>
 
@@ -96,12 +106,12 @@ const AdminDashboard = () => {
                     <p>Manage system access and user roles</p>
                 </div>
 
-                {error && <div className="error-alert">{error}</div>}
-                {success && <div className="success-alert"><CheckCircle size={16} /> {success}</div>}
-
                 <div className="glass-card table-container">
                     {loading ? (
-                        <div className="loading-state">Loading users...</div>
+                        <div className="loading-state" style={{ padding: '2rem', textAlign: 'center' }}>
+                            <Spinner size={32} />
+                            <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>Loading users...</p>
+                        </div>
                     ) : (
                         <>
                             <table className="custom-table">
@@ -166,37 +176,34 @@ const AdminDashboard = () => {
                                 </tbody>
                             </table>
 
-                            {/* Pagination */}
-                            <div className="pagination">
-                                <button
-                                    disabled={page === 1}
-                                    onClick={() => setPage(p => p - 1)}
-                                    className="btn-page"
-                                >
-                                    <ChevronLeft size={20} />
-                                </button>
-                                <span>Page {page} of {totalPages}</span>
-                                <button
-                                    disabled={page === totalPages}
-                                    onClick={() => setPage(p => p + 1)}
-                                    className="btn-page"
-                                >
-                                    <ChevronRight size={20} />
-                                </button>
-                            </div>
+                            <Pagination
+                                currentPage={page}
+                                totalPages={totalPages}
+                                onPageChange={setPage}
+                            />
                         </>
                     )}
                 </div>
             </div>
 
-            <ConfirmationModal
+            <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
-                onConfirm={confirmAction}
                 title={`Confirm ${actionType === 'activate' ? 'Activation' : 'Deactivation'}`}
-                message={`Are you sure you want to ${actionType} ${selectedUser?.fullName}? This will ${actionType === 'deactivate' ? 'prevent them from logging in' : 'restore their access'}.`}
-                type={actionType === 'deactivate' ? 'danger' : 'success'}
-            />
+                footer={modalFooter}
+            >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                    <div className={`modal-icon ${actionType === 'deactivate' ? 'danger' : 'success'}`}>
+                        <AlertTriangle size={24} />
+                    </div>
+                    <div>
+                        <p>Are you sure you want to {actionType} <strong>{selectedUser?.fullName}</strong>?</p>
+                        <p style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>
+                            This will {actionType === 'deactivate' ? 'prevent them from logging in' : 'restore their access'}.
+                        </p>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };
