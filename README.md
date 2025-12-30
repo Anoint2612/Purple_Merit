@@ -118,6 +118,26 @@ cd Purple_Merit
 
 ---
 
+## 🧪 Testing
+
+The backend includes a comprehensive test suite using **Jest** and **Supertest** to ensure API reliability and security.
+
+### Running Tests
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Run the test script:
+   ```bash
+   npm test
+   ```
+
+### Test Coverage
+- **Auth Tests (`tests/auth.test.js`):** Verifies signup, login, token generation, and protected route access.
+- **Admin Tests (`tests/admin.test.js`):** Verifies admin-only access, user management (fetching, activating, deactivating users), and role-based restrictions.
+
+---
+
 ## 📡 API Documentation
 
 **Postman Collection:** [View Collection](https://web.postman.co/workspace/Postman-API-Fundamentals-Studen~3cb0a4a7-2602-4f2a-b2e6-82668bbbe764/collection/38320399-2561bab2-8ba4-4314-a1e3-eac5488c9c33?action=share&source=copy-link&creator=38320399)
