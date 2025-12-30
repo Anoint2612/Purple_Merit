@@ -7,8 +7,10 @@ import {
 } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';
 
+import Navbar from '../components/Navbar';
+
 const AdminDashboard = () => {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -71,19 +73,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="dashboard-container">
-            {/* Navbar */}
-            <nav className="glass-nav">
-                <div className="nav-brand">
-                    <Shield size={24} className="text-primary" />
-                    <span>Admin Portal</span>
-                </div>
-                <div className="nav-profile">
-                    <span>{user?.fullName}</span>
-                    <button onClick={logout} className="btn-icon" title="Logout">
-                        <LogOut size={20} />
-                    </button>
-                </div>
-            </nav>
+            <Navbar />
 
             <div className="dashboard-content">
                 <div className="content-header">
@@ -138,18 +128,18 @@ const AdminDashboard = () => {
                                                             {u.status === 'active' ? (
                                                                 <button
                                                                     onClick={() => handleActionClick(u, 'deactivate')}
-                                                                    className="btn-action btn-danger"
-                                                                    title="Deactivate User"
+                                                                    className="btn-action btn-success"
+                                                                    title="Active (Click to Deactivate)"
                                                                 >
-                                                                    <XCircle size={18} />
+                                                                    <CheckCircle size={18} />
                                                                 </button>
                                                             ) : (
                                                                 <button
                                                                     onClick={() => handleActionClick(u, 'activate')}
-                                                                    className="btn-action btn-success"
-                                                                    title="Activate User"
+                                                                    className="btn-action btn-danger"
+                                                                    title="Inactive (Click to Activate)"
                                                                 >
-                                                                    <CheckCircle size={18} />
+                                                                    <XCircle size={18} />
                                                                 </button>
                                                             )}
                                                         </>
