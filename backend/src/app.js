@@ -18,6 +18,30 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/users', require('./routes/user.routes'));
 app.use('/api/admin', require('./routes/admin.routes'));
 
+app.get('/working', (req, res) => {
+    res.json({
+        status: 'Backend is running',
+        message: 'Welcome to Purple Merit API',
+        endpoints: {
+            auth: [
+                'POST /api/auth/signup',
+                'POST /api/auth/login',
+                'POST /api/auth/logout',
+                'GET /api/auth/me'
+            ],
+            users: [
+                'PUT /api/users/me',
+                'PUT /api/users/me/password'
+            ],
+            admin: [
+                'GET /api/admin/users',
+                'PATCH /api/admin/users/:id/activate',
+                'PATCH /api/admin/users/:id/deactivate'
+            ]
+        }
+    });
+});
+
 // Error Handler
 app.use(errorHandler);
 
