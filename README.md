@@ -165,7 +165,34 @@ Time:        2.345 s
 
 ---
 
-## 📡 API Documentation
+## � Docker Setup
+
+You can run the entire application (Frontend + Backend) using Docker Compose.
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Steps
+1. Create a `.env` file in the root directory (same level as `docker-compose.yml`) with your backend secrets:
+   ```env
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secure_jwt_secret
+   ```
+   *Note: For the frontend to talk to the backend in this setup, ensure your `frontend/src/api/axios.js` points to `http://localhost:5000/api` (which is the default).*
+
+2. Build and run the containers:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Access the application:
+   - **Frontend:** `http://localhost:3000`
+   - **Backend:** `http://localhost:5000`
+
+---
+
+## �📡 API Documentation
 
 **Postman Collection:** [View Collection](https://web.postman.co/workspace/Postman-API-Fundamentals-Studen~3cb0a4a7-2602-4f2a-b2e6-82668bbbe764/collection/38320399-2561bab2-8ba4-4314-a1e3-eac5488c9c33?action=share&source=copy-link&creator=38320399) (DM me and I will allow the access)
 
