@@ -30,12 +30,6 @@ export const AuthProvider = ({ children }) => {
         const response = await api.post('/auth/login', { email, password });
         const { token, user } = response.data.data;
         localStorage.setItem('token', token);
-        // If the API returns the user object in login response, use it.
-        // Based on my backend code: 
-        // successResponse(res, { token }, 'Login successful'); 
-        // Wait, my backend login ONLY returns token in data. It doesn't return the user object directly in data.
-        // I should fetch the user details after login or update backend.
-        // I'll fetch it for now to be safe.
         const meResponse = await api.get('/auth/me');
         setUser(meResponse.data.data);
         return meResponse.data.data;

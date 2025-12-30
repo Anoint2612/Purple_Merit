@@ -14,7 +14,6 @@ const UserProfile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Profile Form
     const { register: registerProfile, handleSubmit: handleProfileSubmit, reset: resetProfile, formState: { errors: profileErrors } } = useForm({
         defaultValues: {
             fullName: user?.fullName || '',
@@ -22,7 +21,6 @@ const UserProfile = () => {
         }
     });
 
-    // Password Form
     const { register: registerPass, handleSubmit: handlePassSubmit, reset: resetPass, watch, formState: { errors: passErrors } } = useForm();
     const newPassword = watch('newPassword');
 

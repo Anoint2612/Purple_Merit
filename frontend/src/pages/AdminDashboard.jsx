@@ -18,10 +18,9 @@ const AdminDashboard = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    // Modal State
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [actionType, setActionType] = useState(null); // 'activate' or 'deactivate'
+    const [actionType, setActionType] = useState(null);
 
     const fetchUsers = async (pageNum) => {
         setLoading(true);
@@ -57,7 +56,7 @@ const AdminDashboard = () => {
             await api.patch(endpoint);
 
             addToast(`User ${selectedUser.fullName} ${actionType}d successfully`, 'success');
-            fetchUsers(page); // Refresh list
+            fetchUsers(page);
         } catch (err) {
             addToast(err.response?.data?.message || `Failed to ${actionType} user`, 'error');
         } finally {
@@ -81,7 +80,6 @@ const AdminDashboard = () => {
 
     return (
         <div className="dashboard-container">
-            {/* Navbar */}
             <nav className="glass-nav">
                 <div className="nav-brand">
                     <Shield size={24} className="text-primary" />
