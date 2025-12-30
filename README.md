@@ -3,6 +3,11 @@
 ## 📌 Project Overview
 Purple Merit is a robust User Management System designed to handle secure authentication, role-based access control (RBAC), and user administration. It features a modern, responsive frontend and a secure, scalable backend. The application allows users to sign up, log in, and manage their profiles, while administrators can view, activate, or deactivate users via a dedicated dashboard.
 
+## Live Project Link : https://purple-merit-zeta.vercel.app
+### Backend render link : https://purple-merit-backend-5uyj.onrender.com/working
+
+## Note : The project is RBAC so you cannot just GET the users because those can only be accessed by the admin. Login in the vercel link and see the magic 🪄
+
 **Purpose:** To provide a secure and efficient template for user management applications with production-ready features like JWT authentication, input validation, and responsive UI.
 
 ---
@@ -108,7 +113,7 @@ cd Purple_Merit
    - `VITE_API_URL`: `https://your-backend-url.onrender.com/api`
 5. Deploy!
 
-### Backend (Render/Railway)
+### Backend (Render)
 1. Push your code to GitHub.
 2. Create a new Web Service on Render/Railway.
 3. Connect your repository and set the **Root Directory** to `backend`.
