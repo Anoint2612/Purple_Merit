@@ -15,8 +15,12 @@ const Login = () => {
         setIsLoading(true);
         setServerError('');
         try {
-            await login(data.email, data.password);
-            navigate('/dashboard');
+            const userData = await login(data.email, data.password);
+            if (userData.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (error) {
             setServerError(error.response?.data?.message || 'Login failed');
         } finally {
