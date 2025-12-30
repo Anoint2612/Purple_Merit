@@ -7,10 +7,8 @@ import {
 } from 'lucide-react';
 import ConfirmationModal from '../components/ConfirmationModal';
 
-import Navbar from '../components/Navbar';
-
 const AdminDashboard = () => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -73,7 +71,24 @@ const AdminDashboard = () => {
 
     return (
         <div className="dashboard-container">
-            <Navbar />
+            {/* Navbar */}
+            <nav className="glass-nav">
+                <div className="nav-brand">
+                    <Shield size={24} className="text-primary" />
+                    <span>Admin Portal</span>
+                </div>
+                <div className="nav-profile">
+                    <a href="/profile" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', marginRight: '1rem' }}>
+                        <div className="user-avatar" style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}>
+                            {user?.fullName?.charAt(0)}
+                        </div>
+                        <span>{user?.fullName}</span>
+                    </a>
+                    <button onClick={logout} className="btn-icon" title="Logout">
+                        <LogOut size={20} />
+                    </button>
+                </div>
+            </nav>
 
             <div className="dashboard-content">
                 <div className="content-header">
