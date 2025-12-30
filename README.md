@@ -125,7 +125,7 @@ cd Purple_Merit
 
 ## 📡 API Documentation
 
-**Postman Collection:** [View Collection](https://web.postman.co/workspace/Postman-API-Fundamentals-Studen~3cb0a4a7-2602-4f2a-b2e6-82668bbbe764/collection/38320399-2561bab2-8ba4-4314-a1e3-eac5488c9c33?action=share&source=copy-link&creator=38320399)
+**Postman Collection:** [View Collection](https://web.postman.co/workspace/Postman-API-Fundamentals-Studen~3cb0a4a7-2602-4f2a-b2e6-82668bbbe764/collection/38320399-2561bab2-8ba4-4314-a1e3-eac5488c9c33?action=share&source=copy-link&creator=38320399) (DM me and I will allow the access)
 
 ### Base URL
 `http://localhost:5000/api`
