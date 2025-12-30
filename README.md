@@ -125,7 +125,7 @@ cd Purple_Merit
 
 ## 🧪 Testing
 
-The backend includes a comprehensive test suite using **Jest** and **Supertest** to ensure API reliability and security.
+The backend includes a comprehensive test suite using **Jest** and **Supertest** to ensure API reliability, security, and correct role-based access control.
 
 ### Running Tests
 1. Navigate to the backend directory:
@@ -137,9 +137,31 @@ The backend includes a comprehensive test suite using **Jest** and **Supertest**
    npm test
    ```
 
-### Test Coverage
-- **Auth Tests (`tests/auth.test.js`):** Verifies signup, login, token generation, and protected route access.
-- **Admin Tests (`tests/admin.test.js`):** Verifies admin-only access, user management (fetching, activating, deactivating users), and role-based restrictions.
+### Test Coverage Details
+
+#### 1. Authentication Tests (`tests/auth.test.js`)
+- **Signup Flow:** Verifies that new users can register successfully and that duplicate emails are rejected.
+- **Login Flow:** Checks for successful login with valid credentials and rejection of invalid ones.
+- **Token Generation:** Ensures a valid JWT is returned upon login.
+- **Protected Routes:** Verifies that unauthenticated requests to protected endpoints (e.g., `/auth/me`) are blocked.
+
+#### 2. Admin & User Management Tests (`tests/admin.test.js`)
+- **Admin Access:** Confirms that only users with the `admin` role can access user management endpoints.
+- **User Listing:** Tests the pagination and data retrieval of the user list.
+- **Status Management:** Verifies that admins can successfully activate or deactivate user accounts.
+- **Security Checks:** Ensures that regular users cannot perform admin actions (e.g., deactivating another user).
+
+### Expected Output
+When running `npm test`, you should see a summary of passing tests, similar to:
+```
+ PASS  tests/auth.test.js
+ PASS  tests/admin.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        2.345 s
+```
 
 ---
 
