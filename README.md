@@ -3,7 +3,7 @@
 ## 📌 Project Overview
 Purple Merit is a robust User Management System designed to handle secure authentication, role-based access control (RBAC), and user administration. It features a modern, responsive frontend and a secure, scalable backend. The application allows users to sign up, log in, and manage their profiles, while administrators can view, activate, or deactivate users via a dedicated dashboard.
 
-## Live Project Link : Some changes are going on
+## Live Project Link : purplemeritfrontend.vercel.app
 ### Backend render link : https://purple-merit-backend-5uyj.onrender.com/working
 
 ## Note : The project is RBAC so you cannot just GET the users because those can only be accessed by the admin. Login in the vercel link and see the magic 🪄
